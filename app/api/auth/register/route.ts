@@ -25,7 +25,10 @@ export async function POST(request: NextRequest) {
       id: Date.now().toString(),
       email,
       username,
-      role: 'user'
+      role: 'user' as const,
+      createdAt: new Date(),
+      isActive: true,
+      emailVerified: false
     };
 
     const token = JWTUtils.generateToken(user);
@@ -36,7 +39,7 @@ export async function POST(request: NextRequest) {
       user: { id: user.id, email: user.email, username: user.username },
       message: 'ثبت نام موفقیت‌آمیز بود'
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'خطای سرور' },
       { status: 500 }

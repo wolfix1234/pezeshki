@@ -19,7 +19,10 @@ export async function POST(request: NextRequest) {
         id: '1',
         email: 'test@example.com',
         username: 'کاربر تست',
-        role: 'user'
+        role: 'user' as const,
+        createdAt: new Date(),
+        isActive: true,
+        emailVerified: true
       };
 
       const token = JWTUtils.generateToken(user);
@@ -36,7 +39,7 @@ export async function POST(request: NextRequest) {
       { success: false, message: 'ایمیل یا رمز عبور اشتباه است' },
       { status: 401 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'خطای سرور' },
       { status: 500 }

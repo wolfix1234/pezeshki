@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { IUserResponse } from '../models/User';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
@@ -24,7 +24,7 @@ export class JWTUtils {
       expiresIn: JWT_EXPIRES_IN,
       issuer: 'pezeshki-app',
       audience: 'pezeshki-users'
-    });
+    } as jwt.SignOptions);
   }
 
   static verifyToken(token: string): JWTPayload | null {
@@ -32,7 +32,7 @@ export class JWTUtils {
       const decoded = jwt.verify(token, JWT_SECRET, {
         issuer: 'pezeshki-app',
         audience: 'pezeshki-users'
-      }) as JWTPayload;
+      } as jwt.VerifyOptions) as JWTPayload;
       
       return decoded;
     } catch (error) {
@@ -56,18 +56,18 @@ export class JWTUtils {
     return jwt.sign(
       { userId, type: 'refresh' },
       JWT_SECRET,
-      { expiresIn: '30d' }
+      { expiresIn: '30d' } as jwt.SignOptions
     );
   }
 
   static verifyRefreshToken(token: string): { userId: string } | null {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as any;
+      const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; type: string };
       if (decoded.type !== 'refresh') {
         return null;
       }
       return { userId: decoded.userId };
-    } catch (error) {
+    } catch {
       return null;
     }
   }

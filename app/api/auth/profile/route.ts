@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       success: true,
       user
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'خطای سرور' },
       { status: 500 }

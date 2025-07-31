@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection } from 'mongodb';
+import { Collection } from 'mongodb';
 import { IUser, IUserResponse, IUserLogin, IUserRegister, UserModel } from '../models/User';
 import { PasswordUtils } from './password';
 import { JWTUtils } from './jwt';
@@ -187,7 +187,7 @@ export class AuthService {
   static async getUserById(userId: string): Promise<IUserResponse | null> {
     try {
       const collection = await this.getUserCollection();
-      const { ObjectId } = require('mongodb');
+      const { ObjectId } = await import('mongodb');
       
       const user = await collection.findOne({ 
         _id: new ObjectId(userId) 
@@ -207,10 +207,10 @@ export class AuthService {
   static async updateUser(userId: string, updateData: Partial<IUser>): Promise<AuthResult> {
     try {
       const collection = await this.getUserCollection();
-      const { ObjectId } = require('mongodb');
+      const { ObjectId } = await import('mongodb');
 
       // Remove sensitive fields that shouldn't be updated directly
-      const { password, _id, createdAt, ...safeUpdateData } = updateData;
+      const { ...safeUpdateData } = updateData;
 
       const result = await collection.updateOne(
         { _id: new ObjectId(userId) },
@@ -255,7 +255,7 @@ export class AuthService {
   static async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<AuthResult> {
     try {
       const collection = await this.getUserCollection();
-      const { ObjectId } = require('mongodb');
+      const { ObjectId } = await import('mongodb');
 
       const user = await collection.findOne({ _id: new ObjectId(userId) });
       if (!user) {

@@ -8,7 +8,7 @@ export class PasswordUtils {
       const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
       const hashedPassword = await bcrypt.hash(password, salt);
       return hashedPassword;
-    } catch (error) {
+    } catch {
       throw new Error('Error hashing password');
     }
   }
@@ -16,7 +16,7 @@ export class PasswordUtils {
   static async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
     try {
       return await bcrypt.compare(password, hashedPassword);
-    } catch (error) {
+    } catch {
       throw new Error('Error comparing passwords');
     }
   }

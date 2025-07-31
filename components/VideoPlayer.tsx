@@ -9,6 +9,8 @@ export default function VideoPlayer({ src }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  console.log(isVisible)
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;

@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+body {
+  font-family: Vazirmatn, sans-serif;
+}
+.rmdp-container {
+  direction: rtl !important;
+}
+
+.rmdp-calendar {
+  width: 320px !important;
+}
+
+.rmdp-day-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rmdp-header {
+  margin-bottom: 10px;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: rgba(188, 0, 96, 0.2) !important;
+  color: #BC0060 !important;
+}
+
+.rmdp-day.rmdp-selected span {
+  background-color: #BC0060 !important;
+  box-shadow: 0 0 5px #BC0060 !important;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+  background-color: rgba(188, 0, 96, 0.1) !important;
+}
+
+.rmdp-disabled {
+  color: #ccc !important;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: rgba(188, 0, 96, 0.1) !important;
+  box-shadow: 0 0 5px rgba(188, 0, 96, 0.1) !important;
+}
+
+.rmdp-week-day {
+  color: #BC0060 !important;
+  font-weight: bold;
+}
+
+.rmdp-header-values {
+  font-weight: bold;
+  color: #333;
+  margin: 0 5px;
+}
